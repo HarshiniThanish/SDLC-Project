@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CareSync is a premium Hospital Appointment & Patient Management System connecting patients, providers, and administrators.">
+  <title>CareSync - Hospital Appointment & Patient Management</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- APP CONTAINER -->
+  <div id="app" class="app-container guest-mode">
+    
+    <!-- HEADER BAR -->
+    <header class="app-header header-hidden" id="main-header">
+      <div class="logo-area">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+          </svg>
+        </div>
+        <span class="brand-title">CareSync</span>
+      </div>
+      
+      <div class="search-bar">
+        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="global-search" placeholder="Search appointments, records, or help...">
+      </div>
+      
+      <div class="header-actions">
+        <button class="notification-btn" id="notif-btn" title="Notifications">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          <span class="badge" id="notif-badge">2</span>
+        </button>
+        <div class="user-profile-badge" id="profile-badge">
+          <div class="avatar-initials" id="avatar-initials">US</div>
+          <span class="user-role-label" id="top-role-label">Guest</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="main-wrapper">
+      
+      <!-- SIDEBAR NAVIGATION -->
+      <aside class="app-sidebar sidebar-hidden" id="main-sidebar">
+        <nav class="sidebar-nav">
+          <div class="nav-section-title">Patient Portal</div>
+          <ul>
+            <li>
+              <a href="#" class="nav-link active" data-view="dashboard" id="nav-dashboard">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-view="book-appointment" id="nav-appointments">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span>Book Appointment</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-view="medical-records" id="nav-records">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                <span>Medical Records</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="nav-section-title mgmt-title" id="mgmt-section-title">Management</div>
+          <ul id="mgmt-nav-items">
+            <li>
+              <a href="#" class="nav-link" data-view="admin-analytics" id="nav-analytics">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                <span>Analytics / Spend</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link" data-view="clinic-mgmt" id="nav-clinic">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                <span>Clinic Mgmt</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+          <button id="logout-btn" class="logout-btn">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            <span>Logout</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT WINDOW -->
+      <main class="app-main-content">
+        
+        <!-- SECTION 1: AUTHENTICATION (LOGIN / SIGNUP) -->
+        <section id="view-auth" class="auth-container">
+          <div class="auth-card glass-panel">
+            <div class="auth-header">
+              <div class="auth-logo">
+                <svg viewBox="0 0 24 24" width="36" height="36" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+              </div>
+              <h1 class="auth-title">Sign in to CareSync</h1>
+              <p class="auth-subtitle">Enter your credentials to access your health portal</p>
+            </div>
+
+            <!-- Error Notification Alert -->
+            <div class="alert alert-danger hidden" id="auth-error-alert">
+              Invalid credentials. Please try again.
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form">
+              <div class="form-group">
+                <label for="login-email">Email Address</label>
+                <div class="input-wrapper">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="input-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  <input type="email" id="login-email" required placeholder="name@example.com" value="patient@caresync.com">
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <div class="label-row">
+                  <label for="login-password">Password</label>
+                  <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+                <div class="input-wrapper">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="input-icon"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  <input type="password" id="login-password" required placeholder="••••••••" value="password123">
+                </div>
+              </div>
+              
+              <div class="form-options">
+                <label class="checkbox-container">
+                  <input type="checkbox" checked id="remember-me">
+                  <span class="checkmark"></span>
+                  Remember me for 30 days
+                </label>
+              </div>
+              
+              <button type="submit" class="btn btn-primary btn-block">
+                <span>Login to Dashboard</span>
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+            </form>
+
+            <!-- Signup Form (Hidden by default) -->
+            <form id="signup-form" class="auth-form hidden">
+              <div class="form-group">
+                <label for="signup-name">Full Name</label>
+                <div class="input-wrapper">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="input-icon"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  <input type="text" id="signup-name" placeholder="John Doe">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="signup-email">Email Address</label>
+                <div class="input-wrapper">
+                  <input type="email" id="signup-email" placeholder="name@example.com">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="signup-phone">Phone Number</label>
+                <div class="input-wrapper">
+                  <input type="text" id="signup-phone" placeholder="(555) 123-4567">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="signup-password">Password</label>
+                <div class="input-wrapper">
+                  <input type="password" id="signup-password" placeholder="Min 6 characters">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="signup-role">Role</label>
+                <select id="signup-role" class="custom-select">
+                  <option value="patient" selected>Patient</option>
+                  <option value="doctor">Doctor</option>
+                </select>
+              </div>
+
+              <!-- Patient extra details -->
+              <div id="signup-patient-fields" class="form-row">
+                <div class="form-group col-6">
+                  <label for="signup-age">Age</label>
+                  <input type="number" id="signup-age" placeholder="30" value="30">
+                </div>
+                <div class="form-group col-6">
+                  <label for="signup-insurance">Insurance Provider</label>
+                  <input type="text" id="signup-insurance" placeholder="e.g. Aetna, BlueCross" value="None">
+                </div>
+              </div>
+
+              <!-- Doctor extra details -->
+              <div id="signup-doctor-fields" class="form-row hidden">
+                <div class="form-group col-6">
+                  <label for="signup-dept">Department</label>
+                  <input type="text" id="signup-dept" placeholder="Cardiology">
+                </div>
+                <div class="form-group col-6">
+                  <label for="signup-spec">Specialization</label>
+                  <input type="text" id="signup-spec" placeholder="Cardiologist">
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">
+                <span>Create Account</span>
+              </button>
+            </form>
+
+            <div class="auth-footer">
+              <span id="auth-switch-text">Don't have an account?</span>
+              <a href="#" id="auth-switch-btn">Create an account</a>
+            </div>
+            
+            <div class="help-links">
+              <a href="#">Help Center</a>
+              <span class="divider">•</span>
+              <a href="#">System Status</a>
+            </div>
+          </div>
+          
+          <div class="demo-logins">
+            <h4>Quick Demo Roles:</h4>
+            <div class="demo-buttons">
+              <button class="btn btn-sm btn-outline demo-btn" data-email="patient@caresync.com">Patient</button>
+              <button class="btn btn-sm btn-outline demo-btn" data-email="sarah.jenkins@caresync.com">Doctor</button>
+              <button class="btn btn-sm btn-outline demo-btn" data-email="admin@caresync.com">Admin</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: PATIENT DASHBOARD -->
+        <section id="view-dashboard" class="dashboard-view view-section hidden">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Welcome back, <span id="dash-user-name">Patient</span></h2>
+              <p class="view-subtitle">Here is your digital health overview today.</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-primary" id="btn-quick-book">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span>Book Appointment</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Cards Summary Row -->
+          <div class="stats-grid">
+            <div class="stat-card glass-panel">
+              <div class="card-icon blue-bg">
+                <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              </div>
+              <div class="stat-content">
+                <span class="stat-label">Total Appointments</span>
+                <span class="stat-val" id="stats-total-appointments">0</span>
+              </div>
+            </div>
+            
+            <div class="stat-card glass-panel">
+              <div class="card-icon green-bg">
+                <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              </div>
+              <div class="stat-content">
+                <span class="stat-label">Next Scheduled Appt</span>
+                <span class="stat-val" id="stats-next-appt">None</span>
+              </div>
+            </div>
+
+            <div class="stat-card glass-panel">
+              <div class="card-icon purple-bg">
+                <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              </div>
+              <div class="stat-content">
+                <span class="stat-label">Active Prescriptions</span>
+                <span class="stat-val" id="stats-prescriptions">0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Appointments List -->
+          <div class="dashboard-details-grid">
+            <div class="list-section glass-panel">
+              <div class="section-header">
+                <h3>Upcoming Appointments</h3>
+                <a href="#" class="view-all-link" id="view-all-appts">View All</a>
+              </div>
+              <div class="table-container">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Doctor</th>
+                      <th>Specialty</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="upcoming-appts-tbody">
+                    <!-- Dynamic Rows -->
+                    <tr><td colspan="6" class="no-data">No appointments found.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="history-quick glass-panel">
+              <div class="section-header">
+                <h3>Quick Actions</h3>
+              </div>
+              <div class="action-buttons-vertical">
+                <button class="action-card-btn" id="btn-quick-records">
+                  <div class="action-btn-icon"><svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line></svg></div>
+                  <div class="action-btn-info">
+                    <h4>View Diagnostics History</h4>
+                    <p>Access diagnoses, medication charts, and lab files.</p>
+                  </div>
+                </button>
+
+                <button class="action-card-btn" id="btn-quick-settings">
+                  <div class="action-btn-icon"><svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></div>
+                  <div class="action-btn-info">
+                    <h4>Insurance Demographics</h4>
+                    <p>Update policy carriers, billing addresses, or details.</p>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 3: BOOK APPOINTMENT (FIND SPECIALIST) -->
+        <section id="view-book-appointment" class="book-appointment-view view-section hidden">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Find your specialist</h2>
+              <p class="view-subtitle">Search through our network of over 500+ verified medical professionals.</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-outline" id="btn-toggle-verified">
+                <span>Show Only Verified</span>
+              </button>
+              <button class="btn btn-outline" id="btn-toggle-map">
+                <span>Map View</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Specialty Search Filters -->
+          <div class="search-filter-card glass-panel">
+            <form id="doctor-search-form" class="filter-form">
+              <div class="filter-group">
+                <label for="filter-specialty">Specialty or Doctor</label>
+                <div class="filter-input-wrapper">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                  <input type="text" id="filter-specialty" placeholder="e.g. Cardiology, Dr. Jenkins">
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <label for="filter-location">Location</label>
+                <div class="filter-input-wrapper">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <input type="text" id="filter-location" placeholder="City or Zip Code" value="New York NY">
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <label for="filter-date">Date</label>
+                <div class="filter-input-wrapper">
+                  <input type="date" id="filter-date">
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <label for="filter-insurance">Insurance</label>
+                <div class="filter-input-wrapper">
+                  <input type="text" id="filter-insurance" placeholder="Provider name" value="BlueCross PPO">
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary" id="btn-find-doctors">
+                <span>Find Doctors</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Doctor Booking Flow Grid -->
+          <div class="booking-grid">
+            
+            <!-- Left Side: Doctor Cards -->
+            <div class="doctor-list-container">
+              <div class="list-summary">
+                <h3 id="doctors-count-label">0 Doctors Available</h3>
+                <span class="sort-by">Sort by: <strong>Relevance</strong></span>
+              </div>
+              
+              <div class="doctors-cards-stack" id="doctors-list-target">
+                <!-- Dynamically populated doctor cards -->
+              </div>
+            </div>
+
+            <!-- Right Side: Booking Panel -->
+            <div class="booking-summary-panel glass-panel" id="booking-details-panel">
+              <div class="panel-placeholder" id="panel-placeholder-msg">
+                <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" stroke-width="1" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <h4>Select a Doctor & Slot</h4>
+                <p>Choose a practitioner and click an available time slot to finalize your reservation.</p>
+              </div>
+
+              <div class="panel-content hidden" id="panel-booking-content">
+                <h3 class="panel-title">Appointment Summary</h3>
+                
+                <div class="selected-doctor-profile-card">
+                  <div class="profile-avatar" id="summary-doctor-avatar">SJ</div>
+                  <div>
+                    <h4 id="summary-doctor-name">Dr. Sarah Jenkins</h4>
+                    <p id="summary-doctor-specialty">Cardiologist</p>
+                  </div>
+                </div>
+
+                <div class="summary-details-list">
+                  <div class="summary-row">
+                    <span class="label">Date</span>
+                    <span class="val" id="summary-appt-date">Monday, June 24, 2026</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="label">Time</span>
+                    <span class="val accent-time" id="summary-appt-time">09:00 AM</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="label">Type</span>
+                    <span class="val" id="summary-appt-type">In-Person Visit</span>
+                  </div>
+                </div>
+
+                <div class="patient-info-summary">
+                  <div class="label-row">
+                    <h5>Patient Information</h5>
+                    <a href="#" class="change-link" id="summary-change-patient">Change</a>
+                  </div>
+                  <div class="patient-card-small">
+                    <div class="patient-avatar">AJ</div>
+                    <div>
+                      <h4 id="summary-patient-name">Alex Johnson</h4>
+                      <p>Primary Policy Holder</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="insurance-coverage-card">
+                  <div class="coverage-header">
+                    <h5>Insurance Coverage</h5>
+                    <span class="badge badge-success">Verified</span>
+                  </div>
+                  <div class="coverage-row">
+                    <span class="provider" id="summary-insurance-provider">BlueCross PPO</span>
+                    <span class="copay" id="summary-estimated-copay">* Estimated co-pay: $15.00</span>
+                  </div>
+                  <p class="disclaimer">Estimated co-pay is subject to change based on actual insurance benefits.</p>
+                </div>
+
+                <div class="form-group symptoms-input-group">
+                  <label for="booking-symptoms">Symptoms / Reason for Visit</label>
+                  <textarea id="booking-symptoms" rows="3" placeholder="Describe symptoms (e.g. general checkup, shortness of breath, fatigue)"></textarea>
+                </div>
+
+                <div class="cancellation-alert">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  <p>Cancel up to 24 hours before your appointment for a full refund.</p>
+                </div>
+
+                <button class="btn btn-primary btn-block" id="btn-confirm-booking">
+                  Confirm Appointment
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SECTION 4: APPOINTMENT DETAILS -->
+        <section id="view-appointment-details" class="appt-details-view view-section hidden">
+          <div class="view-header">
+            <div>
+              <a href="#" class="back-link" id="btn-details-back">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                <span>Back to Dashboard</span>
+              </a>
+              <h2 class="view-title" id="details-title">Annual Cardiovascular Screening</h2>
+              <div class="subtitle-row">
+                <span class="date-time" id="details-date-time">Tuesday, November 12, 2024 | 10:30 AM - 11:15 AM (45 mins)</span>
+                <span class="appt-id" id="details-appt-id">ID: APT-98210</span>
+              </div>
+            </div>
+            <div class="header-actions">
+              <span class="badge" id="details-status-badge">Confirmed</span>
+            </div>
+          </div>
+
+          <!-- Buttons Bar -->
+          <div class="actions-bar">
+            <div class="left-actions">
+              <button class="btn btn-outline" id="btn-details-reschedule">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+                <span>Reschedule</span>
+              </button>
+              <button class="btn btn-outline danger-text" id="btn-details-cancel">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                <span>Cancel Appointment</span>
+              </button>
+            </div>
+            <div class="right-actions">
+              <button class="btn btn-outline">
+                <span>Add to Calendar</span>
+              </button>
+              <button class="btn btn-outline">
+                <span>Share Details</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Details Content Grid -->
+          <div class="details-content-grid">
+            
+            <!-- Left Info Panel -->
+            <div class="details-left-panel">
+              
+              <!-- Doctor Card -->
+              <div class="info-card glass-panel">
+                <div class="card-title-row">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" class="title-icon"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  <h4>Care Provider</h4>
+                </div>
+                
+                <div class="provider-profile-row">
+                  <div class="provider-avatar" id="details-doctor-avatar">ER</div>
+                  <div class="provider-details">
+                    <h5 id="details-doctor-name">Dr. Elena Rodriguez</h5>
+                    <p class="specialty" id="details-doctor-specialization">Senior Cardiologist</p>
+                    <p class="bio">Board-certified cardiologist with over 15 years of experience in preventive heart health and diagnostic imaging.</p>
+                    <div class="profile-links">
+                      <a href="#">View Provider Profile</a>
+                      <span class="divider">•</span>
+                      <a href="#">Message Clinic</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Notes & Preparation -->
+              <div class="info-card glass-panel">
+                <div class="card-title-row">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" class="title-icon"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line></svg>
+                  <h4>Preparation & Notes</h4>
+                </div>
+
+                <div class="prep-notes-content">
+                  <div class="alert alert-info">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" class="alert-icon"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    <div>
+                      <h5>Important Instructions</h5>
+                      <ul>
+                        <li>Please arrive 15 minutes early for check-in paperwork.</li>
+                        <li>Fast for at least 8 hours prior to the appointment for blood work.</li>
+                        <li>Bring your current medication list and insurance card.</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="internal-notes">
+                    <h5>Internal Clinic Notes</h5>
+                    <p id="details-appt-symptoms">"Patient requested follow-up on previous blood pressure readings from July. Ensure screening includes resting EKG."</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Related Documents -->
+              <div class="info-card glass-panel">
+                <div class="card-title-row">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" class="title-icon"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                  <h4>Related Documents</h4>
+                  <button class="btn btn-sm btn-outline upload-btn" id="btn-upload-doc">Upload New</button>
+                </div>
+
+                <div class="documents-grid" id="details-documents-target">
+                  <!-- Documents List -->
+                  <div class="document-item">
+                    <div class="doc-icon"><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg></div>
+                    <div class="doc-info">
+                      <h5>Previous_Lab_Results_Oct.pdf</h5>
+                      <span>PDF • 1.2 MB</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Appointment History Timeline -->
+              <div class="info-card glass-panel">
+                <div class="card-title-row">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" class="title-icon"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <h4>Appointment History</h4>
+                </div>
+
+                <div class="timeline" id="details-timeline-target">
+                  <!-- Timeline steps -->
+                  <div class="timeline-step active">
+                    <div class="step-bullet"></div>
+                    <div class="step-content">
+                      <h5>Appointment Confirmed</h5>
+                      <p>Oct 28, 2024 - 02:15 PM</p>
+                      <span>Verification successful with Aetna Insurance. Performed by: CareSync Auto-System</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Right Info Panel -->
+            <div class="details-right-panel">
+              
+              <!-- Location Map Thumbnail -->
+              <div class="info-card glass-panel no-padding">
+                <div class="map-thumbnail">
+                  <div class="map-overlay">
+                    <svg viewBox="0 0 24 24" width="36" height="36" stroke="currentColor" stroke-width="2" fill="none" class="map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    <h4>Metro General Hospital</h4>
+                    <p>123 Healthcare Blvd, Medical District, NY 10001</p>
+                  </div>
+                </div>
+                <div class="card-content-padding">
+                  <div class="facility-meta">
+                    <div class="meta-row">
+                      <span class="label">Building</span>
+                      <span class="val">North Wing, Floor 4</span>
+                    </div>
+                    <div class="meta-row">
+                      <span class="label">Room</span>
+                      <span class="val">Suite 402</span>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary btn-block">Get Driving Directions</button>
+                </div>
+              </div>
+
+              <!-- Facility Contacts -->
+              <div class="info-card glass-panel">
+                <div class="card-title-row">
+                  <h4>Facility Contact</h4>
+                </div>
+                <div class="contact-details">
+                  <div class="contact-row">
+                    <span class="label">General Line</span>
+                    <span class="val">(555) 123-4567</span>
+                  </div>
+                  <div class="contact-row">
+                    <span class="label">Cardiology Suite</span>
+                    <span class="val">(555) 123-4599</span>
+                  </div>
+                  <div class="contact-row">
+                    <span class="label">Website</span>
+                    <span class="val link-text">metrohealth.com</span>
+                  </div>
+                  <a href="#" class="emergency-contact-link">Emergency Contact Details</a>
+                </div>
+              </div>
+
+              <!-- Visit Checklist -->
+              <div class="info-card glass-panel">
+                <div class="card-title-row">
+                  <h4>Visit Checklist</h4>
+                </div>
+                <ul class="checklist-items">
+                  <li>
+                    <label class="checkbox-container done-item">
+                      <input type="checkbox" checked disabled>
+                      <span class="checkmark"></span>
+                      Insurance Card
+                    </label>
+                  </li>
+                  <li>
+                    <label class="checkbox-container done-item">
+                      <input type="checkbox" checked disabled>
+                      <span class="checkmark"></span>
+                      Photo ID
+                    </label>
+                  </li>
+                  <li>
+                    <label class="checkbox-container">
+                      <input type="checkbox" id="chk-meds">
+                      <span class="checkmark"></span>
+                      List of current meds
+                    </label>
+                  </li>
+                  <li>
+                    <label class="checkbox-container">
+                      <input type="checkbox" id="chk-copay">
+                      <span class="checkmark"></span>
+                      Copay method
+                    </label>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+        <!-- SECTION 5: ADMIN PROCUREMENT REPORT / ANALYTICS -->
+        <section id="view-admin-analytics" class="admin-analytics-view view-section hidden">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Medication Procurement Report</h2>
+              <p class="view-subtitle">Performance and spending trends by core suppliers.</p>
+            </div>
+            <div class="header-actions">
+              <div class="date-picker-range">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span class="range-text">Jun 01, 2026 - Jun 30, 2026</span>
+              </div>
+              <button class="btn btn-outline" id="btn-export-pdf">Export PDF</button>
+              <button class="btn btn-primary" id="btn-generate-report">Generate Full Report</button>
+            </div>
+          </div>
+
+          <!-- Analytics Stats Grid -->
+          <div class="procurement-stats-grid">
+            
+            <div class="proc-stat-card glass-panel">
+              <div class="card-top">
+                <span class="label">Total Monthly Spend</span>
+                <span class="trend trend-up">+12.5%</span>
+              </div>
+              <h3 class="value" id="admin-total-spend">$0</h3>
+            </div>
+
+            <div class="proc-stat-card glass-panel">
+              <div class="card-top">
+                <span class="label">Active Suppliers</span>
+                <span class="trend trend-down">-2.1%</span>
+              </div>
+              <h3 class="value" id="admin-active-suppliers">0</h3>
+            </div>
+
+            <div class="proc-stat-card glass-panel">
+              <div class="card-top">
+                <span class="label">Purchase Orders</span>
+                <span class="trend trend-up">+5.8%</span>
+              </div>
+              <h3 class="value" id="admin-purchase-orders">0</h3>
+            </div>
+
+            <div class="proc-stat-card glass-panel">
+              <div class="card-top">
+                <span class="label">Cost Savings</span>
+                <span class="trend trend-up">+18.2%</span>
+              </div>
+              <h3 class="value" id="admin-cost-savings">$0</h3>
+            </div>
+
+          </div>
+
+          <!-- Trends Graph and Spend Distribution Grid -->
+          <div class="trends-dist-grid">
+            
+            <!-- SVG Spend Trends Line Chart -->
+            <div class="chart-card glass-panel">
+              <div class="chart-header">
+                <div>
+                  <h4>Procurement Spend Trends</h4>
+                  <p>Visualizing cost fluctuations over the last 6 months</p>
+                </div>
+                <div class="chart-legends">
+                  <span class="legend"><span class="legend-color pharma-blue"></span> Pharmaceuticals</span>
+                  <span class="legend"><span class="legend-color supplies-green"></span> Medical Supplies</span>
+                </div>
+              </div>
+
+              <div class="chart-container-svg">
+                <!-- Custom SVG Line Chart -->
+                <svg viewBox="0 0 500 220" width="100%" height="220" class="line-chart-svg">
+                  <!-- Grid Lines -->
+                  <line x1="40" y1="20" x2="480" y2="20" stroke="#f0f2f5" stroke-dasharray="3"></line>
+                  <line x1="40" y1="60" x2="480" y2="60" stroke="#f0f2f5" stroke-dasharray="3"></line>
+                  <line x1="40" y1="100" x2="480" y2="100" stroke="#f0f2f5" stroke-dasharray="3"></line>
+                  <line x1="40" y1="140" x2="480" y2="140" stroke="#f0f2f5" stroke-dasharray="3"></line>
+                  <line x1="40" y1="180" x2="480" y2="180" stroke="#f0f2f5" stroke-dasharray="3"></line>
+                  
+                  <!-- Y Axis Labels -->
+                  <text x="35" y="24" text-anchor="end" class="chart-text">610k</text>
+                  <text x="35" y="64" text-anchor="end" class="chart-text">535k</text>
+                  <text x="35" y="104" text-anchor="end" class="chart-text">460k</text>
+                  <text x="35" y="144" text-anchor="end" class="chart-text">385k</text>
+                  <text x="35" y="184" text-anchor="end" class="chart-text">310k</text>
+
+                  <!-- X Axis Labels -->
+                  <text x="60" y="205" text-anchor="middle" class="chart-text">Jan</text>
+                  <text x="140" y="205" text-anchor="middle" class="chart-text">Feb</text>
+                  <text x="220" y="205" text-anchor="middle" class="chart-text">Mar</text>
+                  <text x="300" y="205" text-anchor="middle" class="chart-text">Apr</text>
+                  <text x="380" y="205" text-anchor="middle" class="chart-text">May</text>
+                  <text x="460" y="205" text-anchor="middle" class="chart-text">Jun</text>
+
+                  <!-- Smooth Curve for Pharmaceuticals -->
+                  <path d="M 60 100 Q 100 60 140 60 T 220 84 T 300 20 T 380 50 T 460 30" fill="none" stroke="#00c3f8" stroke-width="3" class="chart-line-anim"></path>
+                  
+                  <!-- Smooth Curve for Medical Supplies -->
+                  <path d="M 60 180 Q 100 185 140 188 T 220 156 T 300 134 T 380 142 T 460 150" fill="none" stroke="#22c55e" stroke-width="3" class="chart-line-anim"></path>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Spend Distribution Breakdown -->
+            <div class="distribution-card glass-panel">
+              <div class="section-header">
+                <h4>Spend Distribution</h4>
+                <p>By Department Allocation</p>
+              </div>
+              <div class="dist-list" id="dept-distribution-list">
+                <!-- Percentage bars populated via JS -->
+                <div class="dist-item">
+                  <div class="dist-meta">
+                    <span class="dept">Radiology</span>
+                    <span class="pct">45%</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar-fill blue-bg" style="width: 45%;"></div>
+                  </div>
+                </div>
+
+                <div class="dist-item">
+                  <div class="dist-meta">
+                    <span class="dept">Cardiology</span>
+                    <span class="pct">28%</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar-fill green-bg" style="width: 28%;"></div>
+                  </div>
+                </div>
+
+                <div class="dist-item">
+                  <div class="dist-meta">
+                    <span class="dept">Pharmacy</span>
+                    <span class="pct">15%</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar-fill purple-bg" style="width: 15%;"></div>
+                  </div>
+                </div>
+
+                <div class="dist-item">
+                  <div class="dist-meta">
+                    <span class="dept">General Surgery</span>
+                    <span class="pct">12%</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar-fill orange-bg" style="width: 12%;"></div>
+                  </div>
+                </div>
+              </div>
+              <p class="chart-footnote">Analysis indicates high-priority spending in Radiology due to diagnostic equipment maintenance contracts.</p>
+            </div>
+
+          </div>
+
+          <!-- Suppliers Spend Table -->
+          <div class="table-section glass-panel">
+            <div class="section-header">
+              <h3>Supplier Invoices & Logistics</h3>
+            </div>
+            <div class="table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Supplier Name</th>
+                    <th>Category</th>
+                    <th>Items Provided</th>
+                    <th>Total Spend</th>
+                    <th>Lead Time Score</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="suppliers-tbody">
+                  <!-- Dynamic Rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- Recent Purchase Orders Cards -->
+          <div class="recent-po-section">
+            <div class="section-header">
+              <h3>Recent Purchase Orders</h3>
+              <a href="#" class="view-all-link">View All Orders</a>
+            </div>
+            <div class="po-grid" id="po-cards-grid">
+              <!-- Dynamically populated PO cards -->
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 6: CLINIC MANAGEMENT (DOCTOR VIEW) -->
+        <section id="view-clinic-mgmt" class="doctor-mgmt-view view-section hidden">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Doctor's Schedule & Patient Queue</h2>
+              <p class="view-subtitle">Review consultations, log patient files, and update slot availability.</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-primary" id="btn-update-schedule">Update Availability</button>
+            </div>
+          </div>
+
+          <div class="doctor-dashboard-grid">
+            <div class="queue-card glass-panel">
+              <div class="section-header">
+                <h3>Today's Patient Queue</h3>
+              </div>
+              <div class="table-container">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Patient Name</th>
+                      <th>Time Slot</th>
+                      <th>Reason / Symptoms</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="doctor-queue-tbody">
+                    <!-- Dynamic Rows -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+            <div class="avail-card glass-panel">
+              <div class="section-header">
+                <h3>Log New Diagnosis / Record</h3>
+              </div>
+              <form id="doctor-record-form" class="clinic-form">
+                <div class="form-group">
+                  <label for="record-patient-select">Select Patient</label>
+                  <select id="record-patient-select" class="custom-select" required>
+                    <option value="">-- Choose Patient --</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="record-diagnosis">Diagnosis</label>
+                  <input type="text" id="record-diagnosis" placeholder="e.g. Essential Hypertension" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="record-prescription">Prescription</label>
+                  <textarea id="record-prescription" rows="2" placeholder="e.g. Lisinopril 10mg - Take 1 tablet daily"></textarea>
+                </div>
+                
+                <div class="form-group">
+                  <label for="record-notes">Clinical Notes</label>
+                  <textarea id="record-notes" rows="3" placeholder="Additional treatment guidelines, next checkup details..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">Log Medical Record</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 7: MEDICAL RECORDS HISTORY VIEW -->
+        <section id="view-medical-records" class="medical-records-view view-section hidden">
+          <div class="view-header">
+            <div>
+              <h2 class="view-title">Diagnostics & Medical Folders</h2>
+              <p class="view-subtitle">Access doctor reviews, clinical summaries, and files.</p>
+            </div>
+          </div>
+          
+          <div class="medical-records-stack" id="medical-records-target">
+            <!-- Dynamic Records cards populated here -->
+          </div>
+        </section>
+
+      </main>
+
+    </div>
+
+    <!-- FOOTER COPYRIGHT -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <p>© 2026 CareSync Health Systems. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+          <a href="#">Security</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ======================================================== -->
+    <!-- MODALS SECTION -->
+    <!-- ======================================================== -->
+    
+    <!-- 1. RESCHEDULE MODAL -->
+    <div class="modal-backdrop hidden" id="reschedule-modal">
+      <div class="modal-content glass-panel">
+        <div class="modal-header">
+          <h3>Reschedule Appointment</h3>
+          <button class="close-modal-btn" id="close-reschedule-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>Please select a new date and time slot for your appointment.</p>
+          <form id="reschedule-form">
+            <div class="form-group">
+              <label for="reschedule-date">New Date</label>
+              <input type="date" id="reschedule-date" required>
+            </div>
+            
+            <div class="form-group">
+              <label>Select Time Slot</label>
+              <div class="slots-selection-grid" id="reschedule-slots-container">
+                <!-- Dynamically populated buttons -->
+                <button type="button" class="slot-btn">09:00 AM</button>
+                <button type="button" class="slot-btn">10:30 AM</button>
+                <button type="button" class="slot-btn">02:15 PM</button>
+                <button type="button" class="slot-btn">04:00 PM</button>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block">Confirm Reschedule</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. UPDATE DOCTOR AVAILABLE SLOTS MODAL -->
+    <div class="modal-backdrop hidden" id="slots-modal">
+      <div class="modal-content glass-panel">
+        <div class="modal-header">
+          <h3>Modify Schedule Availability</h3>
+          <button class="close-modal-btn" id="close-slots-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>Select which slots you want to open for patient scheduling.</p>
+          <div class="slots-checkbox-grid">
+            <label class="checkbox-container">
+              <input type="checkbox" value="08:00 AM" checked class="slot-check">
+              <span class="checkmark"></span>
+              08:00 AM
+            </label>
+            <label class="checkbox-container">
+              <input type="checkbox" value="09:00 AM" checked class="slot-check">
+              <span class="checkmark"></span>
+              09:00 AM
+            </label>
+            <label class="checkbox-container">
+              <input type="checkbox" value="10:30 AM" checked class="slot-check">
+              <span class="checkmark"></span>
+              10:30 AM
+            </label>
+            <label class="checkbox-container">
+              <input type="checkbox" value="11:30 AM" checked class="slot-check">
+              <span class="checkmark"></span>
+              11:30 AM
+            </label>
+            <label class="checkbox-container">
+              <input type="checkbox" value="01:30 PM" checked class="slot-check">
+              <span class="checkmark"></span>
+              01:30 PM
+            </label>
+            <label class="checkbox-container">
+              <input type="checkbox" value="02:15 PM" checked class="slot-check">
+              <span class="checkmark"></span>
+              02:15 PM
+            </label>
+            <label class="checkbox-container">
+              <input type="checkbox" value="03:45 PM" checked class="slot-check">
+              <span class="checkmark"></span>
+              03:45 PM
+            </label>
+            <label class="checkbox-container">
+              <input type="checkbox" value="04:00 PM" checked class="slot-check">
+              <span class="checkmark"></span>
+              04:00 PM
+            </label>
+          </div>
+          <button class="btn btn-primary btn-block" id="btn-save-slots">Save Available Slots</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- APPLICATION JAVASCRIPT FILES -->
+  <script src="/js/api.js"></script>
+  <script src="/js/views.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
