@@ -24,7 +24,7 @@ CareSync is a complete, production-ready hospital management platform that conne
 
 ---
 
-## 📂 Project Architecture & File Structure
+##  Project Architecture & File Structure
 
 The project implements a classic **MVC (Model-View-Controller)** separation:
 
@@ -109,7 +109,7 @@ npm test
 
 ---
 
-## 🔑 Quick Demo Credentials
+##  Quick Demo Credentials
 
 For convenience, the Login page has **Quick Role Buttons** at the bottom. Clicking them automatically enters the credentials below:
 
